@@ -122,9 +122,14 @@ resource "aws_cloudfront_distribution" "this" {
     Environment = "production"
   }
 
+  # [f76f250f] Descomentar cuando haya una hosted zone bajo el dominio: var.app_domain_name y comentar el "viewer_certificate" de abajo
+  # viewer_certificate {
+  #   acm_certificate_arn       = var.certificate_arn
+  #   minimum_protocol_version  = "TLSv1.2_2021"
+  #   ssl_support_method        = "sni-only"
+  # }
+
   viewer_certificate {
-    acm_certificate_arn       = var.certificate_arn
-    minimum_protocol_version  = "TLSv1.2_2021"
-    ssl_support_method        = "sni-only"
+    cloudfront_default_certificate = true
   }
 }
