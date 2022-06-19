@@ -165,8 +165,6 @@ module "api_gateway" {
     # lambda_user_timeout = var.lambda_user_api_timeout
   }
 
-  # lambda_zip_name = local.lambda.zip_name
-  # dist_file_path  = local.dist_file_path # TODO(matías): que es esto
 }
 
 # ---------------------------------------------------------------------------
