@@ -64,7 +64,7 @@ module "cloudfront" {
     local.app_domain_name,
     "www.${local.app_domain_name}"
   ] 
-  certificate_arn              = var.hosted_zone_configured ? module.acm.arn : null
+  certificate_arn              = var.hosted_zone_configured ? module.acm[0].arn : null
   hosted_zone_configured       = var.hosted_zone_configured
 }
 
