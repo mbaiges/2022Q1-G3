@@ -16,13 +16,13 @@ Se decide crear una única aplicación web para resolver todos los problemas. Es
 Los recursos estáticos de la aplicación se encuentran en un bucket S3 Standard que nos da alta disponibilidad. Adicionalmente, utilizamos un CloudFront CDN para asegurar menor latencia si se accede desde distintas partes del mundo. Por otro lado, la capa de aplicación ejecutará funciones Lambda que realizan operaciones sobre una base de datos Aurora Serverless. Para la funcionalidad de BI requerida, utilizamos un Glue DataBrew ETL que transforma la base de datos transaccional Aurora en un formato que nos permita analizar mejor esta información y la vuelca en un Data Lake S3. Finalmente, se utiliza Athena para realizar queries a este bucket y mostrar la información en QuickSight que leerán los managers. Para garantizar la seguridad y las distintas funcionalidades por roles según el tipo de usuario que utilice la aplicación utilizamos Cognito para la autenticación, IAM para los permisos de los roles y WAF para la protección de la red.
 
 
-## Antes de correr
-Hay que correr el comando:
+## Para correr
+Primero hay que correr el comando:
 ```
 $env:TF_VAR_name_prefix = '{nombre identificatorio}'
 ```
 
-Para que los buckets que se creen, no coincidad con los de otras personas
+Para que los buckets que se creen no coincidan con los de otras personas.
 
 Luego ya se pueden correr los comandos dentro de la carpeta *terraform/organization/tp3*
 ```
