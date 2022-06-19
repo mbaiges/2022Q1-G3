@@ -3,7 +3,6 @@
 # ---------------------------------------------------------------------------
 
 # Lambda
-# TODO(matías): This should be a better version (for_each)
 resource "aws_lambda_function" "this" {
   filename         = var.filename
   source_code_hash = var.source_code_hash
