@@ -7,5 +7,5 @@ variable "name_prefix" {
 variable "app_domain_name" {
     description = "App Domain name"
     type        = string
-    default     = "cloud.mbaiges.com"
+    default     = null
 }
