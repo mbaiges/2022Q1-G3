@@ -2,7 +2,7 @@ locals {
   # Run with env var: export TF_VAR_PREFIX="gabi"
   app_name        = "${var.name_prefix}-itba-2022-cloud-g3-tp3"
 
-  app_domain_name = "${var.app_domain_name}"
+  app_domain_name = var.app_domain_name
 
   path = {
     resources = "../../resources"

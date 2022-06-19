@@ -7,5 +7,11 @@ variable "name_prefix" {
 variable "app_domain_name" {
     description = "App Domain name"
     type        = string
-    default     = null
+    default     = ""
+}
+
+variable "hosted_zone_configured" {
+    description = "Hosted zone already created with domain name associated"
+    type        = bool
+    default     = false
 }

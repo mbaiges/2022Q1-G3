@@ -44,6 +44,12 @@ variable "logs_prefix" {
   default     = ""
 }
 
+variable "hosted_zone_configured" {
+  type        = bool
+  description = "Activate if hosted zone is configured"
+  default     = false
+}
+
 variable "aliases" {
   type        = list
   description = "List of aliases."

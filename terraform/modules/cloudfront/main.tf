@@ -42,7 +42,7 @@ resource "aws_cloudfront_distribution" "this" {
   #   prefix          = var.logs_prefix
   # }
 
-  aliases = var.aliases
+  aliases = var.hosted_zone_configured ? var.aliases : []
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -122,14 +122,19 @@ resource "aws_cloudfront_distribution" "this" {
     Environment = "production"
   }
 
-  # [f76f250f] Descomentar cuando haya una hosted zone bajo el dominio: var.app_domain_name y comentar el "viewer_certificate" de abajo
-  # viewer_certificate {
-  #   acm_certificate_arn       = var.certificate_arn
-  #   minimum_protocol_version  = "TLSv1.2_2021"
-  #   ssl_support_method        = "sni-only"
-  # }
+  dynamic viewer_certificate {
+    for_each = var.hosted_zone_configured ? [1] : [] # Only if hosted zone is configured
+    content {
+      acm_certificate_arn       = var.certificate_arn
+      minimum_protocol_version  = "TLSv1.2_2021"
+      ssl_support_method        = "sni-only"
+    }
+  }
 
-  viewer_certificate {
-    cloudfront_default_certificate = true
+  dynamic viewer_certificate {
+    for_each = var.hosted_zone_configured ? [] : [1] # Only if hosted zone is configured
+    content {
+      cloudfront_default_certificate = true
+    }
   }
 }

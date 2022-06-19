@@ -1,25 +1,27 @@
+# ---------------------------------------------------------------------------
+# Amazon Route53
+# ---------------------------------------------------------------------------
 
-# [f76f250f] Descomentar Route 53 y Cerficate Manager cuando haya una hosted zone bajo el dominio: var.app_domain_name
-# # ---------------------------------------------------------------------------
-# # Amazon Route53
-# # ---------------------------------------------------------------------------
+module "route53" {
+  source = "../../modules/route53"
 
-# module "route53" {
-#   source = "../../modules/route53"
+  app_domain_name = local.app_domain_name
+  cloudfront      = module.cloudfront.distribution
 
-#   app_domain_name = local.app_domain_name
-#   cloudfront      = module.cloudfront.distribution
-# }
+  count = var.hosted_zone_configured ? 1 : 0 # Only if hosted zone is configured
+}
 
-# # ---------------------------------------------------------------------------
-# # Amazon AWS Certificate Manager
-# # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Amazon AWS Certificate Manager
+# ---------------------------------------------------------------------------
 
-# module "acm" {
-#   source = "../../modules/acm"
+module "acm" {
+  source = "../../modules/acm"
 
-#   app_domain_name = local.app_domain_name
-# }
+  app_domain_name = local.app_domain_name
+
+  count = var.hosted_zone_configured ? 1 : 0 # Only if hosted zone is configured
+}
 
 # ---------------------------------------------------------------------------
 # Amazon WAF resources
@@ -58,12 +60,12 @@ module "cloudfront" {
 
   logs_s3_bucket_name          = module.s3["logs"].domain_name
 
-  # [f76f250f] Descomentar Route 53 y Cerficate Manager cuando haya una hosted zone bajo el dominio: var.app_domain_name
-  # aliases                      = [
-  #   local.app_domain_name,
-  #   "www.${local.app_domain_name}"
-  # ] 
-  # certificate_arn              = module.acm.arn
+  aliases                      = [
+    local.app_domain_name,
+    "www.${local.app_domain_name}"
+  ] 
+  certificate_arn              = var.hosted_zone_configured ? module.acm.arn : null
+  hosted_zone_configured       = var.hosted_zone_configured
 }
 
 # ---------------------------------------------------------------------------
