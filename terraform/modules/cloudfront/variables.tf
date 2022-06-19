@@ -53,4 +53,5 @@ variable "aliases" {
 variable "certificate_arn" {
   type        = string
   description = "Certificate ARN"
+  default = null
 }

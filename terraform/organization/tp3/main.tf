@@ -1,23 +1,25 @@
-# ---------------------------------------------------------------------------
-# Amazon Route53
-# ---------------------------------------------------------------------------
 
-module "route53" {
-  source = "../../modules/route53"
+# [f76f250f] Descomentar Route 53 y Cerficate Manager cuando haya una hosted zone bajo el dominio: var.app_domain_name
+# # ---------------------------------------------------------------------------
+# # Amazon Route53
+# # ---------------------------------------------------------------------------
 
-  app_domain_name = local.app_domain_name
-  cloudfront      = module.cloudfront.distribution
-}
+# module "route53" {
+#   source = "../../modules/route53"
 
-# ---------------------------------------------------------------------------
-# Amazon AWS Certificate Manager
-# ---------------------------------------------------------------------------
+#   app_domain_name = local.app_domain_name
+#   cloudfront      = module.cloudfront.distribution
+# }
 
-module "acm" {
-  source = "../../modules/acm"
+# # ---------------------------------------------------------------------------
+# # Amazon AWS Certificate Manager
+# # ---------------------------------------------------------------------------
 
-  app_domain_name = local.app_domain_name
-}
+# module "acm" {
+#   source = "../../modules/acm"
+
+#   app_domain_name = local.app_domain_name
+# }
 
 # ---------------------------------------------------------------------------
 # Amazon WAF resources
@@ -56,11 +58,12 @@ module "cloudfront" {
 
   logs_s3_bucket_name          = module.s3["logs"].domain_name
 
-  aliases                      = [
-    local.app_domain_name,
-    "www.${local.app_domain_name}"
-  ] 
-  certificate_arn              = module.acm.arn
+  # [f76f250f] Descomentar Route 53 y Cerficate Manager cuando haya una hosted zone bajo el dominio: var.app_domain_name
+  # aliases                      = [
+  #   local.app_domain_name,
+  #   "www.${local.app_domain_name}"
+  # ] 
+  # certificate_arn              = module.acm.arn
 }
 
 # ---------------------------------------------------------------------------
