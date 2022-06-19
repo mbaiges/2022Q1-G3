@@ -44,22 +44,11 @@ locals {
 
     # 2 - Website
     website = {
-      bucket_name = "bucket-s3-${local.app_name}"
-      path        = "../../resources"
-
-      objects = {
-        error = {
-          filename     = "html/error.html"
-          content_type = "text/html"
-        }
-        hortz = {
-          filename     = "images/hortz.png"
-          content_type = "image/png"
-        }
-        pepe = {
-          filename     = "images/pepe.png"
-          content_type = "image/png"
-        }
+      bucket_name  = "bucket-s3-${local.app_name}"
+      objects_path = "${local.path.resources}/html/"
+      templated = {
+        "index.html": {}
+        "js/custom.js": {}
       }
     }
 
@@ -68,6 +57,8 @@ locals {
       bucket_name = "logs-bucket-s3-${local.app_name}"
     }
   }
+
+  s3_website_templated_contents = { for k, v in local.s3.website.templated : k => data.template_file.file[k].rendered }
 
   openapi = {
     filename = "../../resources/openapi/hortz.yaml"

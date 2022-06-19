@@ -13,6 +13,17 @@ variable "objects" {
   default     = {}
 }
 
+variable "objects_path" {
+  type        = string
+  description = "Path to where files are."
+  default     = "./html"
+}
+
+variable "templated_contents" {
+  type        = map(any)
+  description = "Templated object contents (html)"
+}
+
 variable "block_public_access" {
   type        = bool
   default     = true

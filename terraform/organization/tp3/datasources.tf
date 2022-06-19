@@ -28,9 +28,13 @@ data "archive_file" "lambda_zip" {
 
 ## index.html
 
-data "template_file" "index_html" {
-  template = file("${path.module}/html/index.html")
-  vars = {
-    ENDPOINT = "${module.api_gateway.api_endpoint}"
-  }
+data "template_file" "file" {
+  for_each = local.s3.website.templated
+  template = file("${local.path.resources}/html/${each.key}")
+  vars = merge(
+    each.value, 
+    {
+      API_ENDPOINT = "${module.api_gateway.api_endpoint}"
+    }
+  )
 }

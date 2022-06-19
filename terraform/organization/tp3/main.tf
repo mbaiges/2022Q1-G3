@@ -177,17 +177,19 @@ module "s3" {
 
   bucket_name       = each.value.bucket_name
   bucket_access_oai = [module.cloudfront.access_oai]
-  objects           = try(each.value.objects, {})
+  # objects           = try(each.value.objects, {})
+  objects_path       = local.s3.website.objects_path
+  templated_contents = local.s3_website_templated_contents
 }
 
-resource "aws_s3_object" "this" {
-  provider = aws.aws
-  bucket        = module.s3["website"].id
-  key           = "index.html"
-  content       = data.template_file.index_html.rendered
-  content_type  = "text/html"
-  storage_class = "STANDARD"
-}
+# resource "aws_s3_object" "this" {
+#   provider = aws.aws
+#   bucket        = module.s3["website"].id
+#   key           = "index.html"
+#   content       = data.template_file.index_html.rendered
+#   content_type  = "text/html"
+#   storage_class = "STANDARD"
+# }
 
 # ---------------------------------------------------------------------------
 # Amazon VPC
