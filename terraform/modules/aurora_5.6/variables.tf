@@ -9,11 +9,11 @@ variable "name" {
 
 variable "tags" {
   type        = map(any)
-  description = ""
+  description = "The tags for aurora"
   default     = {}
 }
 
 variable "vpc_id" {
-    type      = string
-    description = "VPC ID"
+  type      = string
+  description = "The VPC ID"
 }

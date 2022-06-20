@@ -4,5 +4,6 @@
 
 output "zone" {
   value = data.aws_route53_zone.this.id
+  description = "Tue zone"
 }
 

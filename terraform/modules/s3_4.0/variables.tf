@@ -9,7 +9,7 @@ variable "bucket_name" {
 
 variable "objects" {
   type        = map(any)
-  description = ""
+  description = "The array of objects"
   default     = {}
 }
 

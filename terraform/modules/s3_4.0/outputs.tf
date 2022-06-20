@@ -3,7 +3,7 @@
 # --------------------------------------------------------------------
 
 output "id" {
-    description = "The bucket domain name. Will be of format bucketname.s3.amazonaws.com"
+    description = "The bucket ID"
     value       = aws_s3_bucket.this.id
 }
 
@@ -18,6 +18,6 @@ output "website_endpoint" {
 }
 
 output "domain_name" {
-    description = "bucket domain name"
+    description = "The bucket domain name"
     value       = aws_s3_bucket.this.bucket_regional_domain_name
 }
