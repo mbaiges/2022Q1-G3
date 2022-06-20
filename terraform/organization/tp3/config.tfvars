@@ -1,2 +1,2 @@
-name_prefix     = "default"
-app_domain_name = "your.app.domain"
+name_prefix     = "matias"
+app_domain_name = "cloud.mbaiges.com"
