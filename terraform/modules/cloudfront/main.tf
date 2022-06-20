@@ -119,7 +119,9 @@ resource "aws_cloudfront_distribution" "this" {
 
 
   tags = {
-    Environment = "production"
+    service = "CloudFront"
+    version = "1.0.0"
+    environment = "production"
   }
 
   # [f76f250f] Descomentar cuando haya una hosted zone bajo el dominio: var.app_domain_name y comentar el "viewer_certificate" de abajo

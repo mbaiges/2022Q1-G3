@@ -6,6 +6,12 @@ resource "aws_acm_certificate" "this" {
   domain_name               = var.app_domain_name
   subject_alternative_names = ["*.${var.app_domain_name}"]
   validation_method         = "DNS"
+
+  tags = {
+    service = "ACM"
+    version = "1.0.0"
+    name = var.app_domain_name
+  }
 }
 
 resource "aws_route53_record" "validation" {

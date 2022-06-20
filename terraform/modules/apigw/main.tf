@@ -12,6 +12,12 @@ resource "aws_api_gateway_rest_api" "this" {
   endpoint_configuration {
     types = ["REGIONAL"]
   }
+
+  tags = {
+    service = "API Gateway"
+    name = var.api_name
+    version = "1.0.0"
+  }
 }
 
 resource "aws_api_gateway_stage" "this" {

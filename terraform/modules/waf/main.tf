@@ -61,4 +61,10 @@ resource "aws_waf_web_acl" "waf_acl" {
     rule_id  = aws_waf_rule.waf_rule.id
     type     = "REGULAR"
  }
+
+  tags = {
+    service = "WAF"
+    version = "1.0.0"
+    name = var.web_acl_name
+  }
 }

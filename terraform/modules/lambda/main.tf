@@ -10,6 +10,15 @@ resource "aws_lambda_function" "this" {
   role             = "arn:aws:iam::${var.aws_caller_identity_account_id}:role/LabRole"
   handler          = var.handler
   runtime          = var.runtime
+
+  tags = {
+    service = "Lambda"
+    version = "1.0.0"
+    method = var.method
+    name = var.name
+    runtime = var.runtime
+  }
+
 }
 
 resource "aws_lambda_permission" "this" {

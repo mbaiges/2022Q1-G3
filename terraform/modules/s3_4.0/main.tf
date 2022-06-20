@@ -9,6 +9,12 @@ locals {
 resource "aws_s3_bucket" "this" {
     bucket              = var.bucket_name
     object_lock_enabled = false
+
+  tags = {
+    service = "S3"
+    version = "1.0.0"
+    name = var.bucket_name
+  }
 }
 
 # 2 -Bucket policy
