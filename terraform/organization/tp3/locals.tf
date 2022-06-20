@@ -134,7 +134,9 @@ locals {
         replica_regions                    = {}
         server_side_encryption_enabled     = false # TODO: activate with a kms key arn
         server_side_encryption_kms_key_arn = null
-        tags                               = {}
+        tags                               = {
+          version = "1.0.0"
+        }
       }
     }
   }
