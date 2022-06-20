@@ -34,3 +34,11 @@ terraform init
 terraform plan
 terraform apply
 ```
+
+## Route 53 y ACM
+
+Para configurar el DNS junto con el certificado SSL, deberá descomentar las secciones bajo el tag `[f76f250f]`, ya que cargar modulos condicionalmente no es práctico en terraform, y ensuciaría demasiado el código (usar un `count` por cada recurso del módulo).
+
+Se investigó al respecto, pero siguiendo la respuesta de [este link](https://blog.dataminded.com/how-to-conditionally-disable-modules-in-terraform-f38fdbe34f1b), al igual que otros, no es práctico hacer esto en este momento.
+
+Por eso, para habilitar Route 53 y ACM, si se cuenta con una hosted zone que apunte al domain name del sitio (se configura desde `config.tfvars`), se deberá buscar todas las entradas de la etiqueta `[f76f250f]`, descomentando los bloques de código respectivos. Para hacer esto deberá contar con una Hosted Zone. 
