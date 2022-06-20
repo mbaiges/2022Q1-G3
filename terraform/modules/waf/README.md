@@ -33,7 +33,7 @@ No modules.
 | <a name="input_waf_rule_group_name"></a> [waf\_rule\_group\_name](#input\_waf\_rule\_group\_name) | The waf rule group mame | `string` | n/a | yes |
 | <a name="input_waf_rule_metrics"></a> [waf\_rule\_metrics](#input\_waf\_rule\_metrics) | The waf rule metrics | `string` | n/a | yes |
 | <a name="input_waf_rule_name"></a> [waf\_rule\_name](#input\_waf\_rule\_name) | The waf rule name | `string` | n/a | yes |
-| <a name="input_web_acl_metics"></a> [web\_acl\_metics](#input\_web\_acl\_metics) | The web acl metrics | `string` | n/a | yes |
+| <a name="input_web_acl_metrics"></a> [web\_acl\_metrics](#input\_web\_acl\_metrics) | The web acl metrics | `string` | n/a | yes |
 | <a name="input_web_acl_name"></a> [web\_acl\_name](#input\_web\_acl\_name) | The web acl name | `string` | n/a | yes |
 
 ## Outputs
