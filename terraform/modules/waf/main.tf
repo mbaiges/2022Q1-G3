@@ -5,7 +5,7 @@
 # Creating the IP Set tp be defined in AWS WAF 
  
 resource "aws_waf_ipset" "ipset" {
-   name = "MyFirstipset"
+   name = "ipset-${var.web_acl_name}"
    ip_set_descriptors {
      type = "IPV4"
      value = "10.111.0.0/20"
@@ -48,7 +48,7 @@ resource "aws_waf_web_acl" "waf_acl" {
      aws_waf_ipset.ipset,
       ]
   name        = var.web_acl_name
-  metric_name = var.web_acl_metics
+  metric_name = var.web_acl_metrics
  
   default_action {
     type = "ALLOW"
