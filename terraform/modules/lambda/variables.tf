@@ -4,55 +4,55 @@
 
 variable "aws_region" {
   type        = string
-  description = ""
+  description = "The AWS region"
 }
 
 variable "aws_caller_identity_account_id" {
   type        = string
-  description = ""
+  description = "the AWS caller identiti account id"
 }
 
 variable "api_gateway_id" {
   type        = string
-  description = ""
+  description = "The API GW ID"
 }
 
 variable "api_gateway_execution_arn" {
   type        = string
-  description = ""
+  description = "The API Gw execution ARN"
 }
 
 variable "filename" {
   type        = string
-  description = ""
+  description = "The lambda filename"
 }
 
 variable "source_code_hash" {
   type        = string
-  description = "" 
+  description = "The source code hash" 
 } 
 
 variable "method" {
   type        = string
-  description = ""
+  description = "The method"
 }
 
 variable "name" {
   type        = string
-  description = ""
+  description = "The fuction name"
 }
 
 variable "handler" {
   type        = string
-  description = ""
+  description = "The handler"
 }
 
 variable "runtime" {
   type        = string
-  description = ""
+  description = "the runtime"
 }
 
 variable "path" {
   type        = string
-  description = ""
+  description = "The path"
 }

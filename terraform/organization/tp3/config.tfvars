@@ -1,2 +1,2 @@
-name_prefix     = "default"
-app_domain_name = "your.app.domain.name"
+name_prefix     = "andy"
+app_domain_name = "cloud.andresbilevich.com"
