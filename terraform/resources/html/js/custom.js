@@ -367,17 +367,4 @@ $(function () {
 		interval: 5000
 	});
 
-	/* HORTZ STAFF ONLY (HORTZ >> HERTZ)
-	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
-	$("#request1").on("click", function () {
-		console.log("REQUEST 111111111");
-		alert("HORTZ >>>>>>>> HERTZ");
-		// $('body,html').animate({
-		// 	scrollTop: 0
-		// }, 1000);
-		$.get("${API_ENDPOINT}/hortz", function(data, status) {
-			alert("SABES QUIEN ES HORTZ???? " + data + "\nStatus: " + status);
-		});
-	});
-
 });

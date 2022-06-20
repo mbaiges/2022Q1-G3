@@ -1683,7 +1683,7 @@ input[type="radio"] .styled:checked+label::after {
 }
 
 .button_section a {
-    width: 190px;
+    width: 285px;
     height: 50px;
     background: #f36b2a;
     float: left;
