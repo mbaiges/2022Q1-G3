@@ -26,18 +26,18 @@
 # ---------------------------------------------------------------------------
 
 module "waf" {
-    source   = "../../modules/waf"
+  source = "../../modules/waf"
 
-    providers = {
-        aws = aws.aws
-    }
+  providers = {
+    aws = aws.aws
+  }
 
-    web_acl_name            = local.waf.web_acl_name
-    web_acl_metics          = local.waf.web_acl_metics
-    waf_rule_name           = local.waf.waf_rule_name
-    waf_rule_metrics        = local.waf.waf_rule_metrics
-    waf_rule_group_name     = local.waf.waf_rule_group_name
-    waf_rule_group_metrics  = local.waf.waf_rule_group_metrics
+  web_acl_name           = local.waf.web_acl_name
+  web_acl_metics         = local.waf.web_acl_metics
+  waf_rule_name          = local.waf.waf_rule_name
+  waf_rule_metrics       = local.waf.waf_rule_metrics
+  waf_rule_group_name    = local.waf.waf_rule_group_name
+  waf_rule_group_metrics = local.waf.waf_rule_group_metrics
 }
 
 # ---------------------------------------------------------------------------
@@ -45,18 +45,18 @@ module "waf" {
 # ---------------------------------------------------------------------------
 
 module "cloudfront" {
-  source   = "../../modules/cloudfront"
+  source = "../../modules/cloudfront"
 
-  web_acl_id                   = module.waf.aws_waf_web_acl_id
+  web_acl_id = module.waf.aws_waf_web_acl_id
 
-  s3_domain_name               = local.cloudfront.s3_domain_name
-  s3_origin_id                 = local.cloudfront.s3_origin_id
+  s3_domain_name = local.cloudfront.s3_domain_name
+  s3_origin_id   = local.cloudfront.s3_origin_id
 
-  apigw_domain_name            = local.cloudfront.apigw_domain_name
-  apigw_origin_id              = local.cloudfront.apigw_origin_id
-  apigw_origin_path            = local.cloudfront.apigw_origin_path
+  apigw_domain_name = local.cloudfront.apigw_domain_name
+  apigw_origin_id   = local.cloudfront.apigw_origin_id
+  apigw_origin_path = local.cloudfront.apigw_origin_path
 
-  logs_s3_bucket_name          = module.s3["logs"].domain_name
+  logs_s3_bucket_name = module.s3["logs"].domain_name
 
   # [f76f250f] Descomentar Route 53 y Cerficate Manager cuando haya una hosted zone bajo el dominio: var.app_domain_name
   # aliases                      = [
@@ -71,17 +71,17 @@ module "cloudfront" {
 # ---------------------------------------------------------------------------
 
 module "api_gateway" {
-  source            = "../../modules/apigw"
+  source = "../../modules/apigw"
 
   # resource_tag_name = var.resource_tag_name
   # namespace         = var.namespace
   # region            = data.aws_region.current.name
 
-  api_name                   = local.api_gateway.name
+  api_name = local.api_gateway.name
   # api_throttling_rate_limit  = var.api_throttling_rate_limit
   # api_throttling_burst_limit = var.api_throttling_burst_limit
   # api_template               = file(local.openapi.filename)
-  api_template                 = jsonencode({
+  api_template = jsonencode({
     openapi = "3.0.1"
     info = {
       title   = "Example"
@@ -227,16 +227,16 @@ module "lambda" {
   aws_region                     = data.aws_region.current.name
   aws_caller_identity_account_id = data.aws_caller_identity.current.id
   api_gateway_id                 = module.api_gateway.id
-  api_gateway_execution_arn      = module.api_gateway.execution_arn 
+  api_gateway_execution_arn      = module.api_gateway.execution_arn
 
-  filename                       = "${local.lambda.zip_dir}/${local.lambda.zip_prefix}${each.value.name}.zip"
+  filename = "${local.lambda.zip_dir}/${local.lambda.zip_prefix}${each.value.name}.zip"
   # source_code_hash               = sha256(filebase64("${local.lambda.zip_dir}/${local.lambda.zip_prefix}${each.value.name}.zip"))
-  source_code_hash               = "${data.archive_file.lambda_zip[each.value.name].output_base64sha256}" 
-  method                         = each.value.method
-  path                           = each.value.path
-  name                           = "${local.lambda.name_prefix}${each.value.name}-${local.app_name}"
-  handler                        = "${each.value.name}.handler"
-  runtime                        = local.lambda_defaults.runtime
+  source_code_hash = data.archive_file.lambda_zip[each.value.name].output_base64sha256
+  method           = each.value.method
+  path             = each.value.path
+  name             = "${local.lambda.name_prefix}${each.value.name}-${local.app_name}"
+  handler          = "${each.value.name}.handler"
+  runtime          = local.lambda_defaults.runtime
 }
 
 # ---------------------------------------------------------------------------
@@ -246,5 +246,5 @@ module "lambda" {
 module "dynamodb" {
   source = "../../modules/dynamodb"
 
-  tables      = local.dynamodb.tables
+  tables = local.dynamodb.tables
 }

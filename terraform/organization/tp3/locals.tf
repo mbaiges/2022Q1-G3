@@ -1,20 +1,20 @@
 locals {
   # Run with env var: export TF_VAR_PREFIX="gabi"
-  app_name        = "${var.name_prefix}-itba-2022-cloud-g3-tp3"
+  app_name = "${var.name_prefix}-itba-2022-cloud-g3-tp3"
 
-  app_domain_name = "${var.app_domain_name}"
+  app_domain_name = var.app_domain_name
 
   path = {
     resources = "../../resources"
   }
 
   vpc = {
-    name                   = "vpc-${local.app_name}"
-    cidr                   = "10.0.0.0/16"
-    availability_zones     = ["${data.aws_region.current.name}a", "${data.aws_region.current.name}b"]
-    public_subnets         = ["10.0.1.0/24", "10.0.2.0/24"]
-    private_subnets        = ["10.0.11.0/24", "10.0.12.0/24"]
-    database_subnets       = ["10.0.21.0/24", "10.0.22.0/24"]
+    name               = "vpc-${local.app_name}"
+    cidr               = "10.0.0.0/16"
+    availability_zones = ["${data.aws_region.current.name}a", "${data.aws_region.current.name}b"]
+    public_subnets     = ["10.0.1.0/24", "10.0.2.0/24"]
+    private_subnets    = ["10.0.11.0/24", "10.0.12.0/24"]
+    database_subnets   = ["10.0.21.0/24", "10.0.22.0/24"]
   }
 
 
@@ -32,7 +32,7 @@ locals {
     s3_origin_id      = "s3-bucket"
     apigw_domain_name = split("/", module.api_gateway.api_endpoint)[2] # TODO: Está horrible pero funcional
     apigw_origin_id   = split("/", module.api_gateway.api_endpoint)[2]
-    apigw_origin_path = "/${split("/", module.api_gateway.api_endpoint)[length(split("/", module.api_gateway.api_endpoint))-1]}"
+    apigw_origin_path = "/${split("/", module.api_gateway.api_endpoint)[length(split("/", module.api_gateway.api_endpoint)) - 1]}"
   }
 
   s3 = {
@@ -47,8 +47,8 @@ locals {
       bucket_name  = "bucket-s3-${local.app_name}"
       objects_path = "${local.path.resources}/html/"
       templated = {
-        "index.html": {}
-        "js/custom.js": {}
+        "index.html" : {}
+        "js/custom.js" : {}
       }
     }
 
@@ -74,9 +74,9 @@ locals {
   }
 
   lambda = {
-    src_dir  = "${local.path.resources}/lambda/src"
-    zip_dir     = "${local.path.resources}/lambda/target"
-    zip_prefix  = "lamdba-"
+    src_dir    = "${local.path.resources}/lambda/src"
+    zip_dir    = "${local.path.resources}/lambda/target"
+    zip_prefix = "lamdba-"
 
     name_prefix = "lambda-"
 
@@ -85,15 +85,15 @@ locals {
         GET = "hortz"
       }
       "/users" = {
-        GET = "getUsers"
+        GET  = "getUsers"
         POST = "createUser"
       }
     }
   }
 
   lambda_endpoints = flatten([
-    for full_path, value in local.lambda.lambdas: flatten([
-      for method, function_name in value: {
+    for full_path, value in local.lambda.lambdas : flatten([
+      for method, function_name in value : {
         "name"      = function_name
         "filename"  = "${function_name}.${local.lambda_defaults.file_extension}"
         "path"      = trimprefix(full_path, "/")
@@ -103,11 +103,11 @@ locals {
     ])
   ])
   lambdas_endpoints_iterable = { for idx, value in local.lambda_endpoints : value.name => value }
-  
+
   aurora = {
     name = "aurora-rds-${local.app_name}"
     tags = {
-      "Name": "Aurora RDS Serverless PostgreSQL"
+      "Name" : "Aurora RDS Serverless PostgreSQL"
     }
   }
 
@@ -125,7 +125,7 @@ locals {
         write_capacity = local.dynamodb_defaults.write_capacity
         hash_key       = "userId"
         range_key      = "username"
-        attributes     = {
+        attributes = {
           userId   = "S"
           username = "S"
         }
@@ -138,5 +138,5 @@ locals {
       }
     }
   }
-  
+
 }

@@ -32,7 +32,7 @@ data "template_file" "file" {
   for_each = local.s3.website.templated
   template = file("${local.path.resources}/html/${each.key}")
   vars = merge(
-    each.value, 
+    each.value,
     {
       API_ENDPOINT = "${module.api_gateway.api_endpoint}"
     }
