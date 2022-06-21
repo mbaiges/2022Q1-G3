@@ -39,7 +39,9 @@ locals {
 
     # 1 - WWW Website
     www-website = {
-      bucket_name = "www.bucket-s3-${local.app_name}"
+      bucket_name  = "www.bucket-s3-${local.app_name}"
+      objects_path = "${local.path.resources}/www/"
+      templated    = {}
     }
 
     # 2 - Website
@@ -54,11 +56,17 @@ locals {
 
     # 3 - Logs
     logs = {
-      bucket_name = "logs-bucket-s3-${local.app_name}"
+      bucket_name  = "logs-bucket-s3-${local.app_name}"
+      objects_path = "${local.path.resources}/logs/"
+      templated    = {}
     }
   }
 
-  s3_website_templated_contents = { for k, v in local.s3.website.templated : k => data.template_file.file[k].rendered }
+  templated_contents = {
+    www-website = { for k, v in local.s3.www-website.templated : k => data.template_file.file[k].rendered }
+    website     = { for k, v in local.s3.website.templated : k => data.template_file.file[k].rendered }
+    logs        = { for k, v in local.s3.logs.templated : k => data.template_file.file[k].rendered }
+  }
 
   openapi = {
     filename = "../../resources/openapi/hortz.yaml"

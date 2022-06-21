@@ -178,8 +178,8 @@ module "s3" {
   bucket_name       = each.value.bucket_name
   bucket_access_oai = [module.cloudfront.access_oai]
   # objects           = try(each.value.objects, {})
-  objects_path       = local.s3.website.objects_path
-  templated_contents = local.s3_website_templated_contents
+  objects_path       = each.value.objects_path
+  templated_contents = local.templated_contents[each.key]
 }
 
 # resource "aws_s3_object" "this" {
