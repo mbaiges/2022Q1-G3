@@ -27,7 +27,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_aliases"></a> [aliases](#input\_aliases) | List of aliases. | `list` | `[]` | no |
+| <a name="input_aliases"></a> [aliases](#input\_aliases) | List of aliases. | `list(any)` | `[]` | no |
 | <a name="input_apigw_domain_name"></a> [apigw\_domain\_name](#input\_apigw\_domain\_name) | The name of the apigw domain name . Must be less than or equal to 63 characters in length. | `string` | n/a | yes |
 | <a name="input_apigw_origin_id"></a> [apigw\_origin\_id](#input\_apigw\_origin\_id) | The name of the apigw. Must be less than or equal to 63 characters in length. | `string` | n/a | yes |
 | <a name="input_apigw_origin_path"></a> [apigw\_origin\_path](#input\_apigw\_origin\_path) | The origin path of the apigw | `string` | n/a | yes |
