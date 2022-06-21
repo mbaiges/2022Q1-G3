@@ -59,11 +59,11 @@ module "cloudfront" {
   logs_s3_bucket_name = module.s3["logs"].domain_name
 
   # [f76f250f] Descomentar Route 53 y Cerficate Manager cuando haya una hosted zone bajo el dominio: var.app_domain_name
-  # aliases                      = [
+  # aliases = [
   #   local.app_domain_name,
   #   "www.${local.app_domain_name}"
-  # ] 
-  # certificate_arn              = module.acm.arn
+  # ]
+  # certificate_arn = module.acm.arn
 }
 
 # ---------------------------------------------------------------------------
