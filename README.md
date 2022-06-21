@@ -21,7 +21,7 @@ Primero hay que correr el comando:
 ```
 $env:TF_VAR_name_prefix = '{nombre identificatorio}'
 ```
-o configurar en las variables a mano en el archivo config.tfvars y reemplazar el comando apply con:
+o configurar en las variables a mano en el archivo `config.tfvars` (para esto, copiar el template `config.example.tfvars` y guardarlo con el nombre `config.tfvars`) y reemplazar el comando apply con:
 ```
 terraform apply -var-file="config.tfvars"
 ```
