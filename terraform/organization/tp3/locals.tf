@@ -20,11 +20,11 @@ locals {
 
   waf = {
     web_acl_name           = "waf-${local.app_name}"
-    web_acl_metics         = "myFirstwebaclmetics"
-    waf_rule_name          = "myFirstwafrulename"
-    waf_rule_metrics       = "myFirstwafrulemetrics"
-    waf_rule_group_name    = "myFirstwaf_rule_group_name"
-    waf_rule_group_metrics = "myFirstwafrulgroupmetrics"
+    web_acl_metrics        = replace("aclmetrics-waf-${local.app_name}", "-", "")
+    waf_rule_name          = "rulename-waf-${local.app_name}"
+    waf_rule_metrics       = replace("rulemetrics-waf-${local.app_name}", "-", "")
+    waf_rule_group_name    = "rulegroupname-waf-${local.app_name}"
+    waf_rule_group_metrics = replace("rulegroupmetrics-waf-${local.app_name}", "-", "")
   }
 
   cloudfront = {
@@ -48,7 +48,7 @@ locals {
       objects_path = "${local.path.resources}/html/"
       templated = {
         "index.html" : {}
-        "js/custom.js" : {}
+        "js/hortzFile.js" : {}
       }
     }
 

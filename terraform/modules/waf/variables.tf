@@ -6,7 +6,8 @@ variable "web_acl_name" {
   type        = string
   description = "The web acl name"
 }
-variable "web_acl_metics" {
+
+variable "web_acl_metrics" {
   type        = string
   description = "The web acl metrics"
 }

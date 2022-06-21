@@ -44,7 +44,7 @@ resource "aws_s3_bucket_acl" "this" {
   acl    = var.bucket_acl
 }
 
-# 4 - Access Block
+# 5 - Access Block
 
 resource "aws_s3_bucket_public_access_block" "this" {
   bucket = aws_s3_bucket.this.id
@@ -86,4 +86,12 @@ resource "aws_s3_object" "templated" {
   storage_class = "STANDARD"
   content       = each.value
   content_type  = lookup(local.mime_types, regex("\\.[^.]+$", "${var.objects_path}/${each.key}"), null)
+}
+
+# 7 - Versioning
+resource "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.this.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
