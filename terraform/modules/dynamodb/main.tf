@@ -11,7 +11,7 @@ resource "aws_dynamodb_table" "this" {
   billing_mode   = each.value.billing_mode
   read_capacity  = each.value.read_capacity
   write_capacity = each.value.write_capacity
-  
+
   hash_key  = each.value.hash_key
   range_key = each.value.range_key
 
