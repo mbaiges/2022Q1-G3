@@ -7,7 +7,7 @@
 resource "aws_waf_ipset" "ipset" {
   name = "ipset-${var.web_acl_name}"
   ip_set_descriptors {
-    type = "IPV4"
+    type  = "IPV4"
     value = "10.111.0.0/20"
   }
 }
@@ -47,7 +47,7 @@ resource "aws_waf_web_acl" "waf_acl" {
     aws_waf_rule.waf_rule,
     aws_waf_ipset.ipset,
   ]
-  name        = var.web_acl_name
+  name = var.web_acl_name
 
   metric_name = var.web_acl_metrics
 
