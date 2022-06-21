@@ -15,10 +15,10 @@ variable "api_description" {
 
 variable "api_template" {
   type        = string
-  description = "API Template" 
+  description = "API Template"
 }
 
 variable "api_template_vars" {
   type        = map(any)
-  description = "API Template Variables for replacement" 
+  description = "API Template Variables for replacement"
 }
