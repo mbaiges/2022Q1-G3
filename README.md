@@ -36,6 +36,8 @@ terraform plan
 terraform apply
 ```
 
+Para probar la lambda chequear que la table users en dynamo no tiene nada, despues entrar a la pagina y apretar el boton naranja que dice `Try out the Lambda!!!!` y verificar que se crea una entrada en la tabla de dynamo.
+
 ## Route 53 y ACM
 
 Para configurar el DNS junto con el certificado SSL, deberá descomentar las secciones bajo el tag `[f76f250f]`, ya que cargar modulos condicionalmente no es práctico en terraform, y ensuciaría demasiado el código (usar un `count` por cada recurso del módulo).
