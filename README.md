@@ -43,3 +43,12 @@ Para configurar el DNS junto con el certificado SSL, deberá descomentar las sec
 Se investigó al respecto, pero siguiendo la respuesta de [este link](https://blog.dataminded.com/how-to-conditionally-disable-modules-in-terraform-f38fdbe34f1b), al igual que otros, no es práctico hacer esto en este momento.
 
 Por eso, para habilitar Route 53 y ACM, si se cuenta con una hosted zone que apunte al domain name del sitio (se configura desde `config.tfvars`), se deberá buscar todas las entradas de la etiqueta `[f76f250f]`, descomentando los bloques de código respectivos. Para hacer esto deberá contar con una Hosted Zone. 
+
+## Rúbrica
+
+| Integrante                | Legajo | Participación
+| ------------------------- | ------ | -------------
+| Baiges, Matías Sebastián  | 59076  | 25%
+| Bilevich, Andrés Leonardo | 59108  | 25%
+| Margossian, Gabriel Viken | 59130  | 25%
+| Cristobal, Matías Rojas   | 58564  | 25%
