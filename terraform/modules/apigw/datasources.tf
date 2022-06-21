@@ -5,5 +5,5 @@
 data "template_file" "this" {
   template = var.api_template
 
-  vars     = var.api_template_vars
+  vars = var.api_template_vars
 }

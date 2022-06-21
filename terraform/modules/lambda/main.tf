@@ -14,8 +14,8 @@ resource "aws_lambda_function" "this" {
   tags = {
     service = "Lambda"
     version = "1.0.0"
-    method = var.method
-    name = var.name
+    method  = var.method
+    name    = var.name
     runtime = var.runtime
   }
 

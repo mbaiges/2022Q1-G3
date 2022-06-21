@@ -3,7 +3,7 @@
 # ---------------------------------------------------------------------------
 
 variable "tables" {
-  type                                 = map(object({
+  type = map(object({
     billing_mode                       = string
     read_capacity                      = string
     write_capacity                     = string

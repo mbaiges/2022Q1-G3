@@ -21,14 +21,14 @@ resource "aws_cloudfront_distribution" "this" {
     origin_path = var.apigw_origin_path
 
     custom_origin_config {
-        origin_protocol_policy = "https-only"
-        origin_ssl_protocols = ["TLSv1.2"]
-        https_port = 443
-        http_port = 80
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+      https_port             = 443
+      http_port              = 80
     }
   }
 
-  web_acl_id          = var.web_acl_id
+  web_acl_id = var.web_acl_id
 
   enabled             = true
   is_ipv6_enabled     = true
@@ -63,64 +63,64 @@ resource "aws_cloudfront_distribution" "this" {
     max_ttl                = 86400
   }
 
-#   # Cache behavior with precedence 0
-#   ordered_cache_behavior {
-#     path_pattern     = "/content/immutable/*"
-#     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-#     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-#     target_origin_id = var.origin_s3_bucket_id
+  #   # Cache behavior with precedence 0
+  #   ordered_cache_behavior {
+  #     path_pattern     = "/content/immutable/*"
+  #     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+  #     cached_methods   = ["GET", "HEAD", "OPTIONS"]
+  #     target_origin_id = var.origin_s3_bucket_id
 
-#     forwarded_values {
-#       query_string = false
-#       headers      = ["Origin"]
+  #     forwarded_values {
+  #       query_string = false
+  #       headers      = ["Origin"]
 
-#       cookies {
-#         forward = "none"
-#       }
-#     }
+  #       cookies {
+  #         forward = "none"
+  #       }
+  #     }
 
-#     min_ttl                = 0
-#     default_ttl            = 86400
-#     max_ttl                = 31536000
-#     compress               = true
-#     viewer_protocol_policy = "redirect-to-https"
-#   }
+  #     min_ttl                = 0
+  #     default_ttl            = 86400
+  #     max_ttl                = 31536000
+  #     compress               = true
+  #     viewer_protocol_policy = "redirect-to-https"
+  #   }
 
-#   # Cache behavior with precedence 1
-#   ordered_cache_behavior {
-#     path_pattern     = "/content/*"
-#     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-#     cached_methods   = ["GET", "HEAD"]
-#     target_origin_id = var.origin_s3_bucket_id
+  #   # Cache behavior with precedence 1
+  #   ordered_cache_behavior {
+  #     path_pattern     = "/content/*"
+  #     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+  #     cached_methods   = ["GET", "HEAD"]
+  #     target_origin_id = var.origin_s3_bucket_id
 
-#     forwarded_values {
-#       query_string = false
+  #     forwarded_values {
+  #       query_string = false
 
-#       cookies {
-#         forward = "none"
-#       }
-#     }
+  #       cookies {
+  #         forward = "none"
+  #       }
+  #     }
 
-#     min_ttl                = 0
-#     default_ttl            = 3600
-#     max_ttl                = 86400
-#     compress               = true
-#     viewer_protocol_policy = "redirect-to-https"
-#   }
+  #     min_ttl                = 0
+  #     default_ttl            = 3600
+  #     max_ttl                = 86400
+  #     compress               = true
+  #     viewer_protocol_policy = "redirect-to-https"
+  #   }
 
   price_class = "PriceClass_100"
 
   restrictions {
     geo_restriction {
       restriction_type = "none"
-    #   locations        = ["US", "CA", "GB", "DE", "IN", "IR"]
+      #   locations        = ["US", "CA", "GB", "DE", "IN", "IR"]
     }
   }
 
 
   tags = {
-    service = "CloudFront"
-    version = "1.0.0"
+    service     = "CloudFront"
+    version     = "1.0.0"
     environment = "production"
   }
 

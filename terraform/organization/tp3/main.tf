@@ -210,9 +210,9 @@ module "vpc" {
   enable_vpn_gateway = false
 
   tags = {
-    name = local.vpc.name
-    cidr = local.vpc.cidr
-    version = "1.0.0"
+    name        = local.vpc.name
+    cidr        = local.vpc.cidr
+    version     = "1.0.0"
     environment = "production"
   }
 }

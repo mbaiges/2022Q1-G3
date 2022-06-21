@@ -4,19 +4,19 @@
 
 resource "aws_route53_record" "main" {
   zone_id = data.aws_route53_zone.this.zone_id
-  name    = "${var.app_domain_name}"
+  name    = var.app_domain_name
   type    = "A"
 
   alias {
-    name    = var.cloudfront.domain_name
-    zone_id = var.cloudfront.hosted_zone_id
+    name                   = var.cloudfront.domain_name
+    zone_id                = var.cloudfront.hosted_zone_id
     evaluate_target_health = false
   }
 
   tags = {
     service = "Route53"
     version = "1.0.0"
-    name = var.app_domain_name
+    name    = var.app_domain_name
   }
 }
 
@@ -26,14 +26,14 @@ resource "aws_route53_record" "www" {
   type    = "A"
 
   alias {
-    name    = aws_route53_record.main.name
-    zone_id = data.aws_route53_zone.this.id
+    name                   = aws_route53_record.main.name
+    zone_id                = data.aws_route53_zone.this.id
     evaluate_target_health = false
   }
 
   tags = {
     service = "Route53"
     version = "1.0.0"
-    name = var.app_domain_name
+    name    = var.app_domain_name
   }
 }

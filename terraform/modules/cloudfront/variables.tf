@@ -45,7 +45,7 @@ variable "logs_prefix" {
 }
 
 variable "aliases" {
-  type        = list
+  type        = list(any)
   description = "List of aliases."
   default     = []
 }
@@ -53,5 +53,5 @@ variable "aliases" {
 variable "certificate_arn" {
   type        = string
   description = "Certificate ARN"
-  default = null
+  default     = null
 }

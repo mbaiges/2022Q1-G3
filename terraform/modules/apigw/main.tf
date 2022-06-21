@@ -15,7 +15,7 @@ resource "aws_api_gateway_rest_api" "this" {
 
   tags = {
     service = "API Gateway"
-    name = var.api_name
+    name    = var.api_name
     version = "1.0.0"
   }
 }

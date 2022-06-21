@@ -10,7 +10,7 @@ resource "aws_acm_certificate" "this" {
   tags = {
     service = "ACM"
     version = "1.0.0"
-    name = var.app_domain_name
+    name    = var.app_domain_name
   }
 }
 

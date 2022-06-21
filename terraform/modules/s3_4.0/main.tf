@@ -7,41 +7,41 @@ locals {
 
 # 1 - S3 bucket
 resource "aws_s3_bucket" "this" {
-    bucket              = var.bucket_name
-    object_lock_enabled = false
+  bucket              = var.bucket_name
+  object_lock_enabled = false
 
   tags = {
     service = "S3"
     version = "1.0.0"
-    name = var.bucket_name
+    name    = var.bucket_name
   }
 }
 
 # 2 -Bucket policy
 resource "aws_s3_bucket_policy" "this" {
-    count = var.objects != {} ? 1 : 0
+  count = var.objects != {} ? 1 : 0
 
-    bucket = aws_s3_bucket.this.id
-    policy = data.aws_iam_policy_document.this.json
+  bucket = aws_s3_bucket.this.id
+  policy = data.aws_iam_policy_document.this.json
 }
 
 # 3 -Website configuration
 resource "aws_s3_bucket_website_configuration" "this" {
-    bucket = aws_s3_bucket.this.id
+  bucket = aws_s3_bucket.this.id
 
-    index_document {
-        suffix = "index.html"
-    }
+  index_document {
+      suffix = "index.html"
+  }
 
-    error_document {
-        key = "error.html"
-    }
+  error_document {
+      key = "error.html"
+  }
 }
 
 # 4 - Access Control List
 resource "aws_s3_bucket_acl" "this" {
-    bucket = aws_s3_bucket.this.id
-    acl    = var.bucket_acl
+  bucket = aws_s3_bucket.this.id
+  acl    = var.bucket_acl
 }
 
 # 4 - Access Block
@@ -68,13 +68,13 @@ resource "aws_s3_bucket_public_access_block" "this" {
 
 # Non templated
 resource "aws_s3_object" "not_templated" {
-  for_each = setsubtract(fileset("${var.objects_path}/", "**"), keys(var.templated_contents))
-  bucket = aws_s3_bucket.this.id
-  key = each.value
-  source = "${var.objects_path}/${each.value}"
-  etag = filemd5("${var.objects_path}/${each.value}")
+  for_each      = setsubtract(fileset("${var.objects_path}/", "**"), keys(var.templated_contents))
+  bucket        = aws_s3_bucket.this.id
+  key           = each.value
+  source        = "${var.objects_path}/${each.value}"
+  etag          = filemd5("${var.objects_path}/${each.value}")
   storage_class = "STANDARD"
-  content_type = lookup(local.mime_types, regex("\\.[^.]+$", "${var.objects_path}/${each.value}"), null)
+  content_type  = lookup(local.mime_types, regex("\\.[^.]+$", "${var.objects_path}/${each.value}"), null)
 }
 
 # Templated
