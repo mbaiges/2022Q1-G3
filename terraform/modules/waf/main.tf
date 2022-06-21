@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 
 # Creating the IP Set tp be defined in AWS WAF 
- 
+
 resource "aws_waf_ipset" "ipset" {
   name = "ipset-${var.web_acl_name}"
   ip_set_descriptors {
@@ -11,9 +11,9 @@ resource "aws_waf_ipset" "ipset" {
     value = "10.111.0.0/20"
   }
 }
- 
+
 # Creating the AWS WAF rule that will be applied on AWS Web ACL
- 
+
 resource "aws_waf_rule" "waf_rule" {
   depends_on  = [aws_waf_ipset.ipset]
   name        = var.waf_rule_name
@@ -24,9 +24,9 @@ resource "aws_waf_rule" "waf_rule" {
     type    = "IPMatch"
   }
 }
- 
+
 # Creating the Rule Group which will be applied on  AWS Web ACL
- 
+
 resource "aws_waf_rule_group" "rule_group" {
   name        = var.waf_rule_group_name
   metric_name = var.waf_rule_metrics
