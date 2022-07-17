@@ -143,6 +143,24 @@ module "api_gateway" {
           }
         }
       }
+      "/cars" = {
+        get = {
+          x-amazon-apigateway-integration = {
+            httpMethod           = "POST"
+            payloadFormatVersion = "1.0"
+            type                 = "AWS_PROXY"
+            uri                  = module.lambda["getCars"].invoke_arn
+          }
+        }
+        post = {
+          x-amazon-apigateway-integration = {
+            httpMethod           = "POST"
+            payloadFormatVersion = "1.0"
+            type                 = "AWS_PROXY"
+            uri                  = module.lambda["rentCar"].invoke_arn
+          }
+        }
+      }
     }
   })
   api_template_vars = {

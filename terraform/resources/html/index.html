@@ -118,6 +118,18 @@
                      <div class="button_section">
                         <a onclick="myFunction()" style="width: 296px !important;" href="#">Try out the Lambda!!!!</a>
                      </div>
+                     <br>
+                     <div class="button_section">
+                        <a onclick="login()" style="width: 296px !important;" href="#">Login</a>
+                     </div>
+                     <br>
+                     <div class="button_section">
+                        <a onclick="rentCar()" style="width: 296px !important;" href="#">Rent a Car!</a>
+                     </div>
+                     <br>
+                     <div class="button_section">
+                        <a onclick="listCars()" style="width: 296px !important;" href="#">List Rented Cars</a>
+                     </div>
                   </div>
                </div>
                <div class="col-md-7">
@@ -527,7 +539,6 @@
         <!-- end google map js -->
          <script>
             function myFunction() {
-               var xmlHttp = new XMLHttpRequest();
                fetch("${API_ENDPOINT}/hortz").then(function(response) {
                   return response.text()
                }).then(function(data) {
@@ -538,6 +549,77 @@
                   alert("Booo");
                   console.log("Booo");
                });
+            }
+
+            function openInNewTab(url) {
+               window.open(url, '_blank').focus();
+            }
+
+            const cognitoUrl = "https://hortz.auth.us-east-1.amazoncognito.com/login?client_id=6vbu5j9ungh2toiljgddl30lgj&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://${APP_DOMAIN}/logged.html"
+            function login() {
+               openInNewTab(cognitoUrl);
+            }
+
+            function rentCar() {
+               fetch("${API_ENDPOINT}/cars", {
+                  method: "POST",
+                  headers: {
+                     "Authorization": getCookie("X-Authorization")
+                  }
+               }).then(function(response) {
+                  return response.text()
+               }).then(function(data) {
+                  const msg = "the lambda returned " + data
+                  alert(msg);
+                  console.log(data);
+               }).catch(function() {
+                  alert("Booo");
+                  console.log("Booo");
+               });
+            }
+
+            function listCars() {
+               fetch("${API_ENDPOINT}/cars", {
+                  headers: {
+                     "Authorization": getCookie("X-Authorization")
+                  }
+               }).then(function(response) {
+                  return response.text()
+               }).then(function(data) {
+                  const msg = "the lambda returned " + data
+                  alert(msg);
+                  console.log(data);
+               }).catch(function() {
+                  alert("Booo");
+                  console.log("Booo");
+               });
+            }
+
+            function setCookie(cname, cvalue, seconds) {
+               const d = new Date();
+               d.setTime(d.getTime() + (seconds*1000));
+               let expires = "expires="+ d.toUTCString();
+               document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            function getCookie(cname) {
+               let name = cname + "=";
+               let decodedCookie = decodeURIComponent(document.cookie);
+               let ca = decodedCookie.split(';');
+               for(let i = 0; i <ca.length; i++) {
+                  let c = ca[i];
+                  while (c.charAt(0) == ' ') {
+                     c = c.substring(1);
+                  }
+                  if (c.indexOf(name) == 0) {
+                     return c.substring(name.length, c.length);
+                  }
+               }
+               return "";
+            }
+
+            function eraseCookie(name) {   
+               document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
             }
          </script>
    </body>

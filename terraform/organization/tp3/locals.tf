@@ -96,6 +96,10 @@ locals {
         GET  = "getUsers"
         POST = "createUser"
       }
+      "/cars" = {
+        GET  = "getCars"
+        POST = "rentCar"
+      }
     }
   }
 
@@ -136,6 +140,27 @@ locals {
         attributes = {
           userId   = "S"
           username = "S"
+        }
+        local_secondary_indexes            = {}
+        global_secondary_indexes           = {}
+        replica_regions                    = {}
+        server_side_encryption_enabled     = false # TODO: activate with a kms key arn
+        server_side_encryption_kms_key_arn = null
+        tags = {
+          version = "1.0.0"
+        }
+      }
+      cars = {
+        billing_mode   = local.dynamodb_defaults.billing_mode
+        read_capacity  = local.dynamodb_defaults.read_capacity
+        write_capacity = local.dynamodb_defaults.write_capacity
+        hash_key       = "carId"
+        range_key      = "modelName"
+        attributes = {
+          carId     = "S"
+          modelName = "S"
+          # color     = "S"
+          # year      = "N"
         }
         local_secondary_indexes            = {}
         global_secondary_indexes           = {}
