@@ -70,6 +70,22 @@ module "cloudfront" {
 # Amazon API Gateway
 # ---------------------------------------------------------------------------
 
+module "cognito" {
+  source = "../../modules/cognito"
+
+  pool_name       = local.cognito.pool_name
+  client_name     = local.cognito.client_name
+  redirect        = local.cognito.redirect
+  domain_name     = local.cognito.domain_name
+  ui_image        = filebase64("${local.cognito.ui_image_filepath}")
+  aws_region_name = data.aws_region.current.name
+  aws_account_id  = data.aws_caller_identity.current.account_id
+}
+
+# ---------------------------------------------------------------------------
+# Amazon API Gateway
+# ---------------------------------------------------------------------------
+
 module "api_gateway" {
   source = "../../modules/apigw"
 
@@ -77,7 +93,9 @@ module "api_gateway" {
   # namespace         = var.namespace
   # region            = data.aws_region.current.name
 
-  api_name = local.api_gateway.name
+  api_name        = local.api_gateway.name
+  authorizer_name = local.api_gateway.authorizer_name
+  cognito_arn     = module.cognito.arn
   # api_throttling_rate_limit  = var.api_throttling_rate_limit
   # api_throttling_burst_limit = var.api_throttling_burst_limit
   # api_template               = file(local.openapi.filename)
@@ -163,26 +181,7 @@ module "api_gateway" {
       }
     }
   })
-  api_template_vars = {
-    lambda_getUsers_arn = module.lambda["getUsers"].invoke_arn
-    # lambda_invoke_arn = module.lambda["getUsers"].invoke_arn
-
-    # api_name = local.name
-
-    # aws_region = data.aws_region.current.name
-    # aws_caller_identity_account_id = data.aws_caller_identity.current.account_id
-    # api_gateway_id = module.api_gateway.id
-
-
-    # cognito_user_pool_arn = module.cognito.cognito_user_pool_arn
-
-    # lambda_identity_arn     = module.identity.lambda_arn
-    # lambda_identity_timeout = var.lambda_identity_api_timeout
-
-    # lambda_user_arn     = module.user.lambda_arn
-    # lambda_user_timeout = var.lambda_user_api_timeout
-  }
-
+  api_template_vars = {}
 }
 
 # ---------------------------------------------------------------------------

@@ -35,6 +35,14 @@ locals {
     apigw_origin_path = "/${split("/", module.api_gateway.api_endpoint)[length(split("/", module.api_gateway.api_endpoint)) - 1]}"
   }
 
+  cognito = {
+    pool_name         = "cognito-${local.app_name}"
+    client_name       = "cognito-client-${local.app_name}"
+    redirect          = "https://${local.app_domain_name}/logged.html"
+    domain_name       = replace("${local.app_domain_name}", "/[.]/", "-")
+    ui_image_filepath = "${local.path.resources}/html/images/logo.png"
+  }
+
   s3 = {
 
     # 1 - WWW Website
@@ -73,7 +81,8 @@ locals {
   }
 
   api_gateway = {
-    name = "api-gw-${local.app_name}"
+    name            = "api-gw-${local.app_name}"
+    authorizer_name = "api-gw-authorizer-${local.app_name}"
   }
 
   lambda_defaults = {

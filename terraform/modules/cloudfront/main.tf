@@ -48,14 +48,15 @@ resource "aws_cloudfront_distribution" "this" {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = var.s3_origin_id
+    cache_policy_id  = data.aws_cloudfront_cache_policy.disabled.id
 
-    forwarded_values {
-      query_string = false
+    # forwarded_values {
+    #   query_string = false
 
-      cookies {
-        forward = "none"
-      }
-    }
+    #   cookies {
+    #     forward = "none"
+    #   }
+    # }
 
     viewer_protocol_policy = "allow-all"
     min_ttl                = 0

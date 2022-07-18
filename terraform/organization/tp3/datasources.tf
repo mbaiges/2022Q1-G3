@@ -34,8 +34,9 @@ data "template_file" "file" {
   vars = merge(
     each.value,
     {
-      API_ENDPOINT = "${module.api_gateway.api_endpoint}",
-      APP_DOMAIN   = "${local.app_domain_name}"
+      API_ENDPOINT     = "${module.api_gateway.api_endpoint}"
+      APP_DOMAIN       = "${local.app_domain_name}"
+      COGNITO_ENDPOINT = "${module.cognito.hosted_ui_endpoint}"
     }
   )
 }

@@ -239,72 +239,54 @@
       </script>
     
       <script>
-      // This example adds a marker to indicate the position of Bondi Beach in Sydney,
-      // Australia.
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
-          center: {lat: 40.645037, lng: -73.880224},
-          });
-
-        var image = 'images/location_point.png';
-          var beachMarker = new google.maps.Marker({
-             position: {lat: 40.645037, lng: -73.880224},
-             map: map,
-             icon: image
-          });
-        }
-        </script>
-        <!-- google map js -->
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>
-        <!-- end google map js -->
-         <script>
-            var access_token, expires_in;
+         var access_token, expires_in;
+         
+         window.onload = function() {
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+               get: (searchParams, prop) => searchParams.get(prop),
+            });
             
-            window.onload = function() {
-               const params = new Proxy(new URLSearchParams(window.location.search), {
-                  get: (searchParams, prop) => searchParams.get(prop),
-               });
-               
-               access_token = params.access_token;
-               expires_in = params.expires_in === undefined ? 3600 : params.expires_in;
-               if (access_token) {
-                  setCookie("X-Authorization", access_token, expires_in);
-                  console.log(getCookie("X-Authorization"));
+            access_token = params.access_token;
+            expires_in = params.expires_in === undefined ? 3600 : params.expires_in;
+            if (access_token) {
+               console.log("Access Token:");
+               console.log(access_token);
+               setCookie("X-Authorization", access_token, expires_in);
+               console.log(getCookie("X-Authorization"));
+            }
+         };
+
+         function goBack() {
+            window.location = "index.html";
+         }
+
+         function setCookie(cname, cvalue, seconds) {
+            const d = new Date();
+            d.setTime(d.getTime() + (seconds*1000));
+            let expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+         }
+
+         function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+               let c = ca[i];
+               while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
                }
-            };
-
-            function goBack() {
-               window.location = "index.html";
-            }
-
-            function setCookie(cname, cvalue, seconds) {
-               const d = new Date();
-               d.setTime(d.getTime() + (seconds*1000));
-               let expires = "expires="+ d.toUTCString();
-               document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            }
-
-            function getCookie(cname) {
-               let name = cname + "=";
-               let decodedCookie = decodeURIComponent(document.cookie);
-               let ca = decodedCookie.split(';');
-               for(let i = 0; i <ca.length; i++) {
-                  let c = ca[i];
-                  while (c.charAt(0) == ' ') {
-                     c = c.substring(1);
-                  }
-                  if (c.indexOf(name) == 0) {
-                     return c.substring(name.length, c.length);
-                  }
+               if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
                }
-               return "";
             }
+            return "";
+         }
 
-            function eraseCookie(name) {   
-               document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-            }
+         function eraseCookie(name) {   
+            document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+         }
 
-         </script>
+      </script>
    </body>
 </html>
