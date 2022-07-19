@@ -516,27 +516,6 @@
             });
         });
       </script>
-    
-      <script>
-      // This example adds a marker to indicate the position of Bondi Beach in Sydney,
-      // Australia.
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
-          center: {lat: 40.645037, lng: -73.880224},
-          });
-
-        var image = 'images/location_point.png';
-          var beachMarker = new google.maps.Marker({
-             position: {lat: 40.645037, lng: -73.880224},
-             map: map,
-             icon: image
-          });
-        }
-        </script>
-        <!-- google map js -->
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>
-        <!-- end google map js -->
          <script>
             function myFunction() {
                fetch("${API_ENDPOINT}/hortz").then(function(response) {
@@ -555,10 +534,10 @@
                window.open(url, '_blank').focus();
             }
 
-            const cognitoUrl = "https://hortz.auth.us-east-1.amazoncognito.com/login?client_id=6vbu5j9ungh2toiljgddl30lgj&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://${APP_DOMAIN}/logged.html"
+            const cognitoUrl = "${COGNITO_ENDPOINT}"
             function login() {
                openInNewTab(cognitoUrl);
-            }
+            } 
 
             function rentCar() {
                fetch("${API_ENDPOINT}/cars", {

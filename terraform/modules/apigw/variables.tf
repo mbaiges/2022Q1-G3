@@ -22,3 +22,13 @@ variable "api_template_vars" {
   type        = map(any)
   description = "API Template Variables for replacement"
 }
+
+variable "authorizer_name" {
+  type        = string
+  description = "Authorizer name"
+}
+
+variable "cognito_arn" {
+  type        = string
+  description = "Cognito ARN"
+} 

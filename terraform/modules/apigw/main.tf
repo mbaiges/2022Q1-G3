@@ -2,6 +2,13 @@
 # Amazon API Gateway resources
 # ---------------------------------------------------------------------------
 
+resource "aws_api_gateway_authorizer" "this" {
+  name                   = var.authorizer_name
+  rest_api_id            = aws_api_gateway_rest_api.this.id
+  type                   = "COGNITO_USER_POOLS"
+  provider_arns          = ["${var.cognito_arn}"]
+}
+
 resource "aws_api_gateway_rest_api" "this" {
   name           = var.api_name
   description    = var.api_description
