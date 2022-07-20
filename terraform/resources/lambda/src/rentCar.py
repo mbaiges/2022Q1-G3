@@ -8,14 +8,17 @@ def handler(event, context):
             "carId": {
                 "S": "1"
             },
-            "modelName": {
+            "brandName": {
                 "S": "DeLorean"
+            },
+            "modelName": {
+                "S": "DMC 12"
             },
             "color": {
                 "S": "Grey"
             },
-            "year": {
-                "N": 1985
+            "modelYear": {
+                "S": "1985"
             }
         }
     )

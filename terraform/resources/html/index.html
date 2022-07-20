@@ -541,12 +541,14 @@
 
             function rentCar() {
                const authToken = getCookie("X-Authorization");
-               console.log("Token: " + authToken);
+               if (authToken !== undefined && authToken != "") {
+                  console.log("Token found.");
+               }
                fetch("${API_ENDPOINT}/cars", {
-                  mode: "no-cors",
                   method: "POST",
                   headers: {
-                     "Authorization": authToken
+                     "Authorization": authToken,
+                     "Access-Control-Allow-Origin": '*'
                   }
                }).then(function(response) {
                   return response.text()
@@ -562,12 +564,14 @@
 
             function listCars() {
                const authToken = getCookie("X-Authorization");
-               console.log("Token: " + authToken);
+               if (authToken !== undefined && authToken != "") {
+                  console.log("Token found.");
+               }
                fetch("${API_ENDPOINT}/cars", {
-                  mode: "no-cors",
                   method: "GET",
                   headers: {
-                     "Authorization": authToken
+                     "Authorization": authToken,
+                     "Access-Control-Allow-Origin": '*'
                   }
                }).then(function(response) {
                   return response.text()
