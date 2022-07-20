@@ -57,7 +57,8 @@ locals {
       bucket_name  = "bucket-s3-${local.app_name}"
       objects_path = "${local.path.resources}/html/"
       templated = {
-        "index.html" : {}
+        "index.html"      : {}
+        "logged.html"     : {}
         "js/hortzFile.js" : {}
       }
     }

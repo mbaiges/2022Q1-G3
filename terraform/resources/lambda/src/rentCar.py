@@ -10,10 +10,10 @@ def handler(event, context):
             },
             "modelName": {
                 "S": "DeLorean"
-            }
+            },
             "color": {
                 "S": "Grey"
-            }
+            },
             "year": {
                 "N": 1985
             }

@@ -525,8 +525,8 @@
                   alert(msg);
                   console.log(data);
                }).catch(function() {
-                  alert("Booo");
-                  console.log("Booo");
+                  alert("Error calling the function");
+                  console.log("Error calling the function");
                });
             }
 
@@ -540,10 +540,13 @@
             } 
 
             function rentCar() {
+               const authToken = getCookie("X-Authorization");
+               console.log("Token: " + authToken);
                fetch("${API_ENDPOINT}/cars", {
+                  mode: "no-cors",
                   method: "POST",
                   headers: {
-                     "Authorization": getCookie("X-Authorization")
+                     "Authorization": authToken
                   }
                }).then(function(response) {
                   return response.text()
@@ -552,15 +555,19 @@
                   alert(msg);
                   console.log(data);
                }).catch(function() {
-                  alert("Booo");
-                  console.log("Booo");
+                  alert("Error calling the function");
+                  console.log("Error calling the function");
                });
             }
 
             function listCars() {
+               const authToken = getCookie("X-Authorization");
+               console.log("Token: " + authToken);
                fetch("${API_ENDPOINT}/cars", {
+                  mode: "no-cors",
+                  method: "GET",
                   headers: {
-                     "Authorization": getCookie("X-Authorization")
+                     "Authorization": authToken
                   }
                }).then(function(response) {
                   return response.text()
@@ -569,8 +576,8 @@
                   alert(msg);
                   console.log(data);
                }).catch(function() {
-                  alert("Booo");
-                  console.log("Booo");
+                  alert("Error calling the function");
+                  console.log("Error calling the function");
                });
             }
 

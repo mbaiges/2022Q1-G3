@@ -38,19 +38,21 @@
 
          function init() {
             console.log("Searching for Access Token");
-            const params = new Proxy(new URLSearchParams(window.location.search), {
+            console.log("href: " + window.location.href);
+            let modif = window.location.href.split("#")[1];
+            if (modif === undefined) {
+               modif = "";
+            }
+            const params = new Proxy(new URLSearchParams(modif), {
                get: (searchParams, prop) => searchParams.get(prop),
             });
             
             access_token = params.access_token;
-            console.log("1. Access Token:");
-            console.log(access_token);
             expires_in = params.expires_in === undefined ? 3600 : params.expires_in;
             if (access_token) {
-               console.log("2. Access Token:");
-               console.log(access_token);
+               eraseCookie("X-Authorization");
                setCookie("X-Authorization", access_token, expires_in);
-               console.log(getCookie("X-Authorization"));
+               console.log("Cookie set.");
             }
          }
 
@@ -62,7 +64,8 @@
             const d = new Date();
             d.setTime(d.getTime() + (seconds*1000));
             let expires = "expires="+ d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            let c = cname + "=" + cvalue + ";" + expires + ";path=/;domain=${APP_DOMAIN};SameSite=Lax;Secure=false";
+            document.cookie = c;
          }
 
          function getCookie(cname) {
