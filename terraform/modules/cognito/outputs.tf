@@ -11,3 +11,8 @@ output "arn" {
   value       = "arn:aws:cognito-idp:${var.aws_region_name}:${var.aws_account_id}:userpool/${aws_cognito_user_pool.this.id}"
   description = "Cognito ARN"
 }
+
+output "issuer_url" {
+  value       = "https://cognito-idp.${aws_cognito_user_pool.this.domain}.amazonaws.com/${aws_cognito_user_pool.this.id}"
+  description = "Cognito Base URL"
+}

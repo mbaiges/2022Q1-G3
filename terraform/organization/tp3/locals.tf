@@ -99,27 +99,43 @@ locals {
 
     lambdas = {
       "/hortz" = {
-        GET = "hortz"
+        GET = {
+          name = "hortz"
+          auth = false
+        }
       }
       "/users" = {
-        GET  = "getUsers"
-        POST = "createUser"
+        GET  = {
+          name = "getUsers"
+          auth = false
+        }
+        POST = {
+          name = "createUser"
+          auth = false
+        }
       }
       "/cars" = {
-        GET  = "getCars"
-        POST = "rentCar"
+        GET  = {
+          name = "getCars"
+          auth = true
+        }
+        POST = {
+          name = "rentCar"
+          auth = true
+        }
       }
     }
   }
 
   lambda_endpoints = flatten([
     for full_path, value in local.lambda.lambdas : flatten([
-      for method, function_name in value : {
-        "name"      = function_name
-        "filename"  = "${function_name}.${local.lambda_defaults.file_extension}"
+      for method, function in value : {
+        "name"      = function.name
+        "filename"  = "${function.name}.${local.lambda_defaults.file_extension}"
         "path"      = trimprefix(full_path, "/")
         "full_path" = full_path
         "method"    = method
+        "auth"      = function.auth
       }
     ])
   ])
